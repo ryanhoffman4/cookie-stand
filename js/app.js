@@ -1,5 +1,4 @@
-
-//set cookie stand constructor
+ //set cookie stand constructor
 function Location (minCust, maxCust, avg_cook) 
 {
   //set basic constructor parameters
@@ -8,7 +7,8 @@ function Location (minCust, maxCust, avg_cook)
   this.average_cookies_per_sale = avg_cook;
 
   //randomly generate customers per hour
-  this.customers_per_hour = function() {return Math.floor(Math.random() * 100)};
+  this.customers_per_hour = function() 
+  {return Math.floor(Math.random() * (this.maximum_customers - this.minimum_customers) + this.minimum_customers)};
 
   //calculate average hourly cookies using randomly generated customers per hour and average cookies per sale
   //store average hourly cookies into an array
@@ -22,7 +22,7 @@ function Location (minCust, maxCust, avg_cook)
   };
 
   //calculate daily total cookies sold
-  //loop over hourly cookie array, add each element together
+  //loop over hourly cookie array, add each element together 
   this.daily_cookie_total = 0;
   this.calculate_daily_cookie_total = function ()
   {
