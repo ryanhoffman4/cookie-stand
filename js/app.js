@@ -1,3 +1,6 @@
+ //set array for business hours
+ let business_hours = ['6am', '7am', '8am', '9am', '10am', '11am', '12pm', '1pm', '2pm', '3pm', '4pm', '5pm', '6pm', '7pm'];
+ 
  //set cookie stand constructor
 function Location (minCust, maxCust, avg_cook) 
 {
@@ -8,7 +11,7 @@ function Location (minCust, maxCust, avg_cook)
 
   //randomly generate customers per hour
   this.customers_per_hour = function() 
-  {return Math.floor(Math.random() * (this.maximum_customers - this.minimum_customers) + this.minimum_customers)};
+  {return Math.floor(Math.random() * (this.maximum_customers - this.minimum_customers + 1) + this.minimum_customers)};
 
   //calculate average hourly cookies using randomly generated customers per hour and average cookies per sale
   //store average hourly cookies into an array
@@ -26,7 +29,7 @@ function Location (minCust, maxCust, avg_cook)
   this.daily_cookie_total = 0;
   this.calculate_daily_cookie_total = function ()
   {
-    for (let i = 0; i < 14; i++)
+    for (let i = 0; i < business_hours.length; i++)
     {
       this.daily_cookie_total += this.array[i];
     }
@@ -36,7 +39,7 @@ function Location (minCust, maxCust, avg_cook)
   //function prints data into table format
   this.render = function() 
   {
-    for (let i = 0; i < 14; i++)
+    for (let i = 0; i < business_hours.length; i++)
     {
       document.write('<td><script>document.write(' + this.array[i] + ');</script></td>');
     }
@@ -45,9 +48,8 @@ function Location (minCust, maxCust, avg_cook)
   };
 }
 
-//set array for business hours
+
 //print function for head of table
-let business_hours = ['6am', '7am', '8am', '9am', '10am', '11am', '12pm', '1pm', '2pm', '3pm', '4pm', '5pm', '6pm', '7pm'];
 print_hours = function()
 {
   //empty top left table corner
@@ -61,7 +63,23 @@ print_hours = function()
 
   //display total in top right table corner 
   document.write('<th>Daily Total</th>');
-};
+}
+
+
+//function to calculate and print company hourly total
+company_hourly_total = function()
+{
+  let hourly_total = 0;
+  let total_total = 0;
+  for (let i = 0; i < business_hours.length; i++)
+  {
+    hourly_total = Seattle.array[i] + Tokyo.array[i] + Dubai.array[i] + Paris.array[i] + Lima.array[i];
+    total_total += hourly_total;
+    document.write('<th><script>document.write(' + hourly_total + ');</script></th>');
+    hourly_total = 0;
+  }
+    document.write('<th><script>document.write(' + total_total + ');</script></th>');
+}
 
 
 //construct stand locations
@@ -84,15 +102,3 @@ Tokyo.calculate_daily_cookie_total();
 Dubai.calculate_daily_cookie_total();
 Paris.calculate_daily_cookie_total();
 Lima.calculate_daily_cookie_total();
-
-//function to calculate and print company hourly total
-company_hourly_total = function()
-{
-  let hourly_total = 0;
-  for (let i = 0; i < 14; i++)
-  {
-    hourly_total = Seattle.array[i] + Tokyo.array[i] + Dubai.array[i] + Paris.array[i] + Lima.array[i];
-    document.write('<th><script>document.write(' + hourly_total + ');</script></th>');
-    hourly_total = 0;
-  }
-}
